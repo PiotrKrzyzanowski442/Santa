@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    color: #c0392b; /* Czerwony, świąteczny kolor */
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+#nameInput {
+    padding: 12px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+#nameInput:focus {
+    border-color: #27ae60; /* Zielony, świąteczny kolor */
+    outline: none;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2ecc71;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Sekcja wyników */
+#result {
+    min-height: 100px; /* Zapewnia miejsce dla wyniku */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-box {
+    background-color: #ecf0f1;
+    border: 2px solid #27ae60;
+    border-radius: 8px;
+    padding: 20px;
+    animation: fadeIn 0.5s;
+}
+
+.congrats {
+    font-size: 20px;
+    font-weight: bold;
+    color: #c0392b;
+    margin-bottom: 5px;
+}
+
+.target-label {
+    font-size: 16px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.target-name {
+    font-size: 28px;
+    font-weight: 900;
+    color: #27ae60;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.note {
+    font-style: italic;
+    color: #7f8c8d;
+    margin-top: 15px;
+}
+
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
