@@ -8,6 +8,7 @@ const PARY_DZIEWCZYNY = {
     "anastazja orska": "Karina Sokołowska",
     "iga spychała": "Zuzanna Kijak",
     "karina sokołowska": "Amelia Piccinini",
+    
     "maria gołembska": "Maria Kubiak",
     "maria kubiak": "Iga Spychała",
     "martyna nowakowska": "Natasza Wilczyńska",
