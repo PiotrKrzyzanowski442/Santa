@@ -1,44 +1,43 @@
-// UWAGA: Te pary są stałe i zostały wylosowane jednorazowo.
-// System używa LocalStorage, by zapamiętać wynik dla każdego użytkownika.
+// UWAGA: OSTATECZNY ZESTAW PAR - TRZECIE LOSOWANIE PO KOMPROMITACJI TAJEMNICY.
+// Losowanie jest stałe i unikalne dla całej grupy.
 
-// 1. STAŁE PARY DZIEWCZYN (Dziewczyna losuje Dziewczynę)
+// 1. OSTATECZNE PARY DZIEWCZYN
 const PARY_DZIEWCZYNY = {
-    "amelia iwaszkiewicz": "Anastazja Orska",
-    "amelia piccinini": "Zuzanna Michalska",
-    "anastazja orska": "Karina Sokołowska",
-    "iga spychała": "Zuzanna Kijak",
-    "karina sokołowska": "Amelia Piccinini",
-    
-    "maria gołembska": "Maria Kubiak",
-    "maria kubiak": "Iga Spychała",
-    "martyna nowakowska": "Natasza Wilczyńska",
-    "marysia kłos": "Martyna Nowakowska",
-    "natasza wilczyńska": "Marysia Kłos",
-    "zuzanna kijak": "Amelia Iwaszkiewicz",
-    "zuzanna michalska": "Maria Gołembska"
+    "amelia iwaszkiewicz": "Zuzanna Michalska",
+    "amelia piccinini": "Anastazja Orska",
+    "anastazja orska": "Maria Gołembska",
+    "iga spychała": "Amelia Piccinini",
+    "karina sokołowska": "Zuzanna Kijak",
+    "maria gołembska": "Iga Spychała",
+    "maria kubiak": "Amelia Iwaszkiewicz",
+    "martyna nowakowska": "Maria Kubiak",
+    "marysia kłos": "Karina Sokołowska",
+    "natasza wilczyńska": "Martyna Nowakowska",
+    "zuzanna kijak": "Natasza Wilczyńska",
+    "zuzanna michalska": "Marysia Kłos"
 };
 
-// 2. STAŁE PARY CHŁOPCÓW (Chłopak losuje Chłopaka)
+// 2. OSTATECZNE PARY CHŁOPCÓW
 const PARY_CHLOPCY = {
-    "adam jastrzębski": "Łukasz Jessa",
-    "adam kostrzewa": "Wojciech Stańda",
-    "antek gąsiorek": "Piotr Krzyżanowski",
-    "błażej litwin": "Mateusz Skorupski",
-    "eryk żak": "Jan Horynecki",
-    "jakub łuczak": "Kamil Długiewicz",
-    "jan horynecki": "Adam Jastrzębski",
-    "kamil długiewicz": "Eryk Żak",
+    "adam jastrzębski": "Eryk Żak",
+    "adam kostrzewa": "Stanisław Burkiciak",
+    "antek gąsiorek": "Piotr Konatkowski",
+    "błażej litwin": "Kamil Długiewicz",
+    "eryk żak": "Piotr Krzyżanowski",
+    "jakub łuczak": "Łukasz Jessa",
+    "jan horynecki": "Neel Puri",
+    "kamil długiewicz": "Stanisław Szumigłowski",
     "mateusz skorupski": "Błażej Litwin",
-    "neel puri": "Stanisław Szumigłowski",
-    "piotr konatkowski": "Stanisław Burkiciak",
-    "piotr krzyżanowski": "Adam Kostrzewa", // POTWIERDZENIE: Nie losujesz siebie
-    "stanisław burkiciak": "Neel Puri",
-    "stanisław szumigłowski": "Antek Gąsiorek",
-    "wojciech stańda": "Jakub Łuczak",
-    "łukasz jessa": "Piotr Konatkowski"
+    "neel puri": "Adam Kostrzewa",
+    "piotr konatkowski": "Jan Horynecki",
+    "piotr krzyżanowski": "Adam Jastrzębski",
+    "stanisław burkiciak": "Wojciech Stańda",
+    "stanisław szumigłowski": "Mateusz Skorupski",
+    "wojciech stańda": "Antek Gąsiorek",
+    "łukasz jessa": "Jakub Łuczak"
 };
 
-// Główna funkcja losująca
+// Funkcja losuj() - logika (bez zmian)
 function losuj() {
     const inputElement = document.getElementById('nameInput');
     const resultElement = document.getElementById('result');
