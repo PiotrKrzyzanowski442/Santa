@@ -1,51 +1,46 @@
-// Listy uczestników
-const dziewczyny = [
-    "Amelia Iwaszkiewicz", "Amelia Piccinini", "Anastazja Orska", 
-    "Iga Spychała", "Karina Sokołowska", "Maria Gołembska", 
-    "Maria Kubiak", "Martyna Nowakowska", "Marysia Kłos", 
-    "Natasza Wilczyńska", "Zuzanna Kijak", "Zuzanna Michalska"
-];
+// UWAGA: Te pary są stałe i zostały wylosowane jednorazowo.
+// DZIĘKI TEMU ZASADA UNIKALNOŚCI DZIAŁA DLA WSZYSTKICH UCZESTNIKÓW.
 
-const chlopcy = [
-    "Adam Jastrzębski", "Adam Kostrzewa", "Antek Gąsiorek", 
-    "Błażej Litwin", "Eryk Żak", "Jakub Łuczak", 
-    "Jan Horynecki", "Kamil Długiewicz", "Mateusz Skorupski", 
-    "Neel Puri", "Piotr Konatkowski", "Piotr Krzyżanowski", 
-    "Stanisław Burkiciak", "Stanisław Szumigłowski", "Wojciech Stańda", 
-    "Łukasz Jessa"
-];
+// 1. STAŁE PARY DZIEWCZYN (Dziewczyna losuje Dziewczynę)
+const PARY_DZIEWCZYNY = {
+    // KTO LOSUJE (Wpisuje Imię i Nazwisko) : KOGO LOSUJE (Dostaje Prezent)
+    "amelia iwaszkiewicz": "Anastazja Orska",
+    "amelia piccinini": "Zuzanna Michalska",
+    "anastazja orska": "Karina Sokołowska",
+    "iga spychała": "Zuzanna Kijak",
+    "karina sokołowska": "Amelia Piccinini",
+    "maria gołembska": "Maria Kubiak",
+    "maria kubiak": "Iga Spychała",
+    "martyna nowakowska": "Natasza Wilczyńska",
+    "marysia kłos": "Martyna Nowakowska",
+    "natasza wilczyńska": "Marysia Kłos",
+    "zuzanna kijak": "Amelia Iwaszkiewicz",
+    "zuzanna michalska": "Maria Gołembska"
+};
 
-// Funkcja do tasowania tablicy (algorytm Fishera-Yatesa)
-function tasuj(array) {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex != 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-    }
-    return array;
-}
+// 2. STAŁE PARY CHŁOPCÓW (Chłopak losuje Chłopaka)
+const PARY_CHLOPCY = {
+    // KTO LOSUJE (Wpisuje Imię i Nazwisko) : KOGO LOSUJE (Dostaje Prezent)
+    "adam jastrzębski": "Łukasz Jessa",
+    "adam kostrzewa": "Wojciech Stańda",
+    "antek gąsiorek": "Piotr Krzyżanowski",
+    "błażej litwin": "Mateusz Skorupski",
+    "eryk żak": "Jan Horynecki",
+    "jakub łuczak": "Kamil Długiewicz",
+    "jan horynecki": "Adam Jastrzębski",
+    "kamil długiewicz": "Eryk Żak",
+    "mateusz skorupski": "Błażej Litwin",
+    "neel puri": "Stanisław Szumigłowski",
+    "piotr konatkowski": "Stanisław Burkiciak",
+    "piotr krzyżanowski": "Adam Kostrzewa",
+    "stanisław burkiciak": "Neel Puri",
+    "stanisław szumigłowski": "Antek Gąsiorek",
+    "wojciech stańda": "Jakub Łuczak",
+    "łukasz jessa": "Piotr Konatkowski"
+};
 
-// Funkcja do tworzenia unikalnych par (A losuje B, B nie może być A)
-function stworzPary(lista) {
-    const listaTasowana = tasuj([...lista]);
-    const pary = {};
 
-    for (let i = 0; i < lista.length; i++) {
-        const losujacy = lista[i];
-        let wylosowanyIndex = (i + 1) % lista.length; // Losujemy cyklicznie, by nikt nie losował siebie
-
-        pary[losujacy.toLowerCase()] = listaTasowana[wylosowanyIndex];
-    }
-    return pary;
-}
-
-// Tworzenie par przy ładowaniu strony
-const paryDziewczyny = stworzPary(dziewczyny);
-const paryChlopcy = stworzPary(chlopcy);
-
-// Główna funkcja losująca
+// Główna funkcja losująca (nie zmienia się)
 function losuj() {
     const inputElement = document.getElementById('nameInput');
     const resultElement = document.getElementById('result');
@@ -53,7 +48,7 @@ function losuj() {
     // Czyszczenie poprzednich wyników
     resultElement.innerHTML = '';
     
-    // Formatowanie wejścia
+    // Formatowanie wejścia do małych liter dla dopasowania
     const imieNazwisko = inputElement.value.trim();
     if (imieNazwisko === "") {
         resultElement.innerHTML = "<p class='error'>Proszę wpisać swoje imię i nazwisko.</p>";
@@ -64,13 +59,13 @@ function losuj() {
     
     let wylosowanaOsoba = null;
 
-    // Sprawdzanie w listach dziewczyn
-    if (paryDziewczyny.hasOwnProperty(imieNazwiskoLower)) {
-        wylosowanaOsoba = paryDziewczyny[imieNazwiskoLower];
+    // 1. Sprawdzanie w listach dziewczyn
+    if (PARY_DZIEWCZYNY.hasOwnProperty(imieNazwiskoLower)) {
+        wylosowanaOsoba = PARY_DZIEWCZYNY[imieNazwiskoLower];
     } 
-    // Sprawdzanie w listach chłopaków
-    else if (paryChlopcy.hasOwnProperty(imieNazwiskoLower)) {
-        wylosowanaOsoba = paryChlopcy[imieNazwiskoLower];
+    // 2. Sprawdzanie w listach chłopaków
+    else if (PARY_CHLOPCY.hasOwnProperty(imieNazwiskoLower)) {
+        wylosowanaOsoba = PARY_CHLOPCY[imieNazwiskoLower];
     }
 
     // Wyświetlanie wyniku
