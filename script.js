@@ -1,9 +1,8 @@
 // UWAGA: Te pary są stałe i zostały wylosowane jednorazowo.
-// DZIĘKI TEMU ZASADA UNIKALNOŚCI DZIAŁA DLA WSZYSTKICH UCZESTNIKÓW.
+// System używa LocalStorage, by zapamiętać wynik dla każdego użytkownika.
 
 // 1. STAŁE PARY DZIEWCZYN (Dziewczyna losuje Dziewczynę)
 const PARY_DZIEWCZYNY = {
-    // KTO LOSUJE (Wpisuje Imię i Nazwisko) : KOGO LOSUJE (Dostaje Prezent)
     "amelia iwaszkiewicz": "Anastazja Orska",
     "amelia piccinini": "Zuzanna Michalska",
     "anastazja orska": "Karina Sokołowska",
@@ -20,7 +19,6 @@ const PARY_DZIEWCZYNY = {
 
 // 2. STAŁE PARY CHŁOPCÓW (Chłopak losuje Chłopaka)
 const PARY_CHLOPCY = {
-    // KTO LOSUJE (Wpisuje Imię i Nazwisko) : KOGO LOSUJE (Dostaje Prezent)
     "adam jastrzębski": "Łukasz Jessa",
     "adam kostrzewa": "Wojciech Stańda",
     "antek gąsiorek": "Piotr Krzyżanowski",
@@ -32,23 +30,20 @@ const PARY_CHLOPCY = {
     "mateusz skorupski": "Błażej Litwin",
     "neel puri": "Stanisław Szumigłowski",
     "piotr konatkowski": "Stanisław Burkiciak",
-    "piotr krzyżanowski": "Adam Kostrzewa",
+    "piotr krzyżanowski": "Adam Kostrzewa", // POTWIERDZENIE: Nie losujesz siebie
     "stanisław burkiciak": "Neel Puri",
     "stanisław szumigłowski": "Antek Gąsiorek",
     "wojciech stańda": "Jakub Łuczak",
     "łukasz jessa": "Piotr Konatkowski"
 };
 
-
-// Główna funkcja losująca (nie zmienia się)
+// Główna funkcja losująca
 function losuj() {
     const inputElement = document.getElementById('nameInput');
     const resultElement = document.getElementById('result');
     
-    // Czyszczenie poprzednich wyników
     resultElement.innerHTML = '';
     
-    // Formatowanie wejścia do małych liter dla dopasowania
     const imieNazwisko = inputElement.value.trim();
     if (imieNazwisko === "") {
         resultElement.innerHTML = "<p class='error'>Proszę wpisać swoje imię i nazwisko.</p>";
@@ -59,13 +54,25 @@ function losuj() {
     
     let wylosowanaOsoba = null;
 
-    // 1. Sprawdzanie w listach dziewczyn
-    if (PARY_DZIEWCZYNY.hasOwnProperty(imieNazwiskoLower)) {
-        wylosowanaOsoba = PARY_DZIEWCZYNY[imieNazwiskoLower];
-    } 
-    // 2. Sprawdzanie w listach chłopaków
-    else if (PARY_CHLOPCY.hasOwnProperty(imieNazwiskoLower)) {
-        wylosowanaOsoba = PARY_CHLOPCY[imieNazwiskoLower];
+    // KROK 1: Sprawdzenie, czy wynik jest już zapisany w pamięci przeglądarki (LocalStorage)
+    const storedResult = localStorage.getItem(`secretSantaDraw_${imieNazwiskoLower}`);
+    if (storedResult) {
+        wylosowanaOsoba = storedResult;
+        console.log("Wynik pobrany z LocalStorage.");
+    } else {
+        // KROK 2: Jeśli nie ma w LocalStorage, sprawdź stałe listy par
+        if (PARY_DZIEWCZYNY.hasOwnProperty(imieNazwiskoLower)) {
+            wylosowanaOsoba = PARY_DZIEWCZYNY[imieNazwiskoLower];
+        } 
+        else if (PARY_CHLOPCY.hasOwnProperty(imieNazwiskoLower)) {
+            wylosowanaOsoba = PARY_CHLOPCY[imieNazwiskoLower];
+        }
+
+        // KROK 3: Jeśli znaleziono, zapisz do LocalStorage na przyszłość
+        if (wylosowanaOsoba) {
+            localStorage.setItem(`secretSantaDraw_${imieNazwiskoLower}`, wylosowanaOsoba);
+            console.log("Wynik zapisany w LocalStorage.");
+        }
     }
 
     // Wyświetlanie wyniku
@@ -75,7 +82,7 @@ function losuj() {
                 <p class="congrats">🎉 Gratulacje, ${imieNazwisko}! 🎉</p>
                 <p class="target-label">Przygotowujesz prezent dla:</p>
                 <p class="target-name">${wylosowanaOsoba}</p>
-                <p class="note">Wesołych Świąt!</p>
+                <p class="note">Wesołych Świąt! Ten wynik zostanie zapamiętany w Twojej przeglądarce.</p>
             </div>
         `;
     } else {
