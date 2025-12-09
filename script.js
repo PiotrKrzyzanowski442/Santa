@@ -1,6 +1,10 @@
 // UWAGA: OSTATECZNY ZESTAW PAR - TRZECIE LOSOWANIE PO KOMPROMITACJI TAJEMNICY.
 // Losowanie jest stałe i unikalne dla całej grupy.
 
+// 🚨 KLUCZOWY ELEMENT: ZMIEŃ TEN KLUCZ PRZY KAŻDYM KOLEJNYM LOSOWANIU
+// Używamy V3 (Wersja 3)
+const LOCAL_STORAGE_KEY = 'secretSantaDraw_V3'; 
+
 // 1. OSTATECZNE PARY DZIEWCZYN
 const PARY_DZIEWCZYNY = {
     "amelia iwaszkiewicz": "Zuzanna Michalska",
@@ -37,7 +41,7 @@ const PARY_CHLOPCY = {
     "łukasz jessa": "Jakub Łuczak"
 };
 
-// Funkcja losuj() - logika (bez zmian)
+// Funkcja losuj() - logika
 function losuj() {
     const inputElement = document.getElementById('nameInput');
     const resultElement = document.getElementById('result');
@@ -54,8 +58,8 @@ function losuj() {
     
     let wylosowanaOsoba = null;
 
-    // KROK 1: Sprawdzenie, czy wynik jest już zapisany w pamięci przeglądarki (LocalStorage)
-    const storedResult = localStorage.getItem(`secretSantaDraw_${imieNazwiskoLower}`);
+    // KROK 1: Sprawdzenie, czy wynik jest już zapisany w pamięci przeglądarki (NOWY KLUCZ)
+    const storedResult = localStorage.getItem(`${LOCAL_STORAGE_KEY}_${imieNazwiskoLower}`);
     if (storedResult) {
         wylosowanaOsoba = storedResult;
         console.log("Wynik pobrany z LocalStorage.");
@@ -68,9 +72,9 @@ function losuj() {
             wylosowanaOsoba = PARY_CHLOPCY[imieNazwiskoLower];
         }
 
-        // KROK 3: Jeśli znaleziono, zapisz do LocalStorage na przyszłość
+        // KROK 3: Jeśli znaleziono, zapisz do LocalStorage pod NOWYM KLUCZEM
         if (wylosowanaOsoba) {
-            localStorage.setItem(`secretSantaDraw_${imieNazwiskoLower}`, wylosowanaOsoba);
+            localStorage.setItem(`${LOCAL_STORAGE_KEY}_${imieNazwiskoLower}`, wylosowanaOsoba);
             console.log("Wynik zapisany w LocalStorage.");
         }
     }
